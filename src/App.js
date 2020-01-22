@@ -1,8 +1,18 @@
 import React from "react";
 import "./App.css";
+
 const ValidationMessage = props => <p>{props.txt}</p>;
-// const PositiveMessage = () => <p>Możesz obejrzeć film!</p>;
-// const NegativeMessage = () => <p>Nie możesz obejrzeć filmu!</p>;
+const OrderForm = props => {
+  const { submit, change, isConfirmed } = props;
+  return (
+    <form onSubmit={submit}>
+      <input type="checkbox" id="age" onChange={change} checked={isConfirmed} />
+      <label htmlFor="age">Mam conajmniej 16 lat</label>
+      <br />
+      <button type="submit">Kup bilet</button>
+    </form>
+  );
+};
 class App extends React.Component {
   state = {
     isConfirmed: false,
@@ -34,21 +44,14 @@ class App extends React.Component {
 
   render() {
     const { isConfirmed } = this.state;
-
     return (
       <>
         <h1>Kup bilet na hororr roku</h1>
-        <form onSubmit={this.handleFormSubmmit}>
-          <input
-            type="checkbox"
-            id="age"
-            onChange={this.handleCheckboxChange}
-            checked={isConfirmed}
-          />
-          <label htmlFor="age">Mam conajmniej 16 lat</label>
-          <br />
-          <button type="submit">Kup bilet</button>
-        </form>
+        <OrderForm
+          change={this.handleCheckboxChange}
+          submit={this.handleFormSubmmit}
+          checked={isConfirmed}
+        />
         {this.displayMessage()}
       </>
     );
