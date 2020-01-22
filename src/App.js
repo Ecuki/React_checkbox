@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-
-const PositiveMessage = () => <p>Możesz obejrzeć film!</p>;
-const NegativeMessage = () => <p>Nie możesz obejrzeć filmu!</p>;
+const ValidationMessage = props => <p>{props.txt}</p>;
+// const PositiveMessage = () => <p>Możesz obejrzeć film!</p>;
+// const NegativeMessage = () => <p>Nie możesz obejrzeć filmu!</p>;
 class App extends React.Component {
   state = {
     isConfirmed: false,
@@ -23,9 +23,9 @@ class App extends React.Component {
   displayMessage = () => {
     if (this.state.isFormSubmitted) {
       if (this.state.isConfirmed) {
-        return <PositiveMessage />;
+        return <ValidationMessage txt="Kupiłeś" />;
       } else {
-        return <NegativeMessage />;
+        return <ValidationMessage txt="Nie możesz kupić biletu" />;
       }
     } else {
       return null;
@@ -33,6 +33,8 @@ class App extends React.Component {
   };
 
   render() {
+    const { isConfirmed } = this.state;
+
     return (
       <>
         <h1>Kup bilet na hororr roku</h1>
@@ -41,7 +43,7 @@ class App extends React.Component {
             type="checkbox"
             id="age"
             onChange={this.handleCheckboxChange}
-            checked={this.state.isConfirmed}
+            checked={isConfirmed}
           />
           <label htmlFor="age">Mam conajmniej 16 lat</label>
           <br />
